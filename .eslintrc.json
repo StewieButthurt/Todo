@@ -1,0 +1,30 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/essential"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+        "no-unused-vars":"warn",
+        "semi":"off",
+        "arrow-parens":"off",
+        "linebreak-style":"off",
+        "eol-last":"off",
+        "object-curly-spacing":"off",
+        "require-jsdoc":"off",
+        "indent":"off",
+        "operator-linebreak":"off",
+        "padded-blocks":"off"
+    }
+}
