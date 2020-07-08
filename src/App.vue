@@ -44,12 +44,12 @@
     
     .todo__wrapper
         +size(10)
-        height: 500px
+        height: 80vh
         border-top: 1px solid #e4e4e4
         background-color: #fff
         display: flex
         margin: 0 auto
-        margin-top: 40px
+        margin-top: 20px
         border-radius: 4px
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
 </style>
