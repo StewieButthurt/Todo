@@ -47,6 +47,7 @@
         "@babel/polyfill": "^7.10.4",
         "node-sass": "^4.14.1",
         "normalize.css": "^8.0.1",
-        "vue": "^2.6.11"
+        "vue": "^2.6.11",
+        "vuex": "^3.5.1"
     }
 }
