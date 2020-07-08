@@ -6,8 +6,17 @@
             </div>
         </div>
         <div class="todo__wrapper">
-            <app-new-note />
-            <app-notes />
+            <app-new-note 
+                @addTask="addTask"
+            />
+            <app-notes 
+                v-for="(item, index) in todoList"
+                :key="item.title"
+                :title="item.title"
+                :todo="item.todo"
+                :index="index"
+                @changeTitle="changeTitle"
+            />
         </div>
     </div>
     
@@ -18,9 +27,6 @@
     const AppNewNote = () => import('~/components/new-note.vue')
     const AppNotes = () => import('~/components/notes.vue')
     export default {
-        mounted() {
-            console.log(this.todoList)
-        },
         components: {
             AppNewNote,
             AppNotes
@@ -28,6 +34,14 @@
         computed: {
             todoList() {
                 return this.$store.getters['todoList/todoList']
+            }
+        },
+        methods: {
+            async addTask() {
+                
+            },
+            async changeTitle({title, index}) {
+                
             }
         }
     }
@@ -65,10 +79,10 @@
         height: 80vh
         border-top: 1px solid #e4e4e4
         background-color: #fff
-        display: flex
         margin: 0 auto
         margin-top: 20px
         border-radius: 4px
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
-        overflow: hidden
+        overflow-y: auto
+        overflow-x: hidden
 </style>

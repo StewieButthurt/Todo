@@ -1,15 +1,24 @@
 const state = () => ({
     todoList: [{
-        title: 'Новая задача',
+        title: 'Разъебать лица компании ',
+        // data:
         todo: [
 
             {
                 status: false,
-                title: 'Пункт 1'
+                title: 'Пункт 1 Разъебать лица компании'
             },
             {
                 status: false,
-                title: 'Пункт 2'
+                title: 'Пункт 2 Разъебать лица компании'
+            },
+            {
+                status: false,
+                title: 'Пункт 3 Разъебать лица компании'
+            },
+            {
+                status: false,
+                title: 'Пункт 4 Разъебать лица компании'
             }
 
         ]
@@ -17,14 +26,23 @@ const state = () => ({
 })
 
 const mutations = {
-    addTodo(state, todo) {
-        console.log('test')
+    addTodo(state) {
+        state.todoList.unshift({
+            title: '',
+            todo: []
+        })
+    },
+    setTitle(state, { title, index }) {
+        state.todoList[index].title = title
     }
 }
 
 const actions = {
-    async addTodo({ commit }, todo) {
-        commit('addTodo', todo)
+    async addTodo({ commit }) {
+        commit('addTodo')
+    },
+    async setTitle({ commit }, { title, index }) {
+        commit('setTitle', { title, index })
     }
 }
 
