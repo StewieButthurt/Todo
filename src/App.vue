@@ -6,15 +6,36 @@
             </div>
         </div>
         <div class="todo__wrapper">
-
+            <app-new-note />
+            <app-notes />
         </div>
     </div>
     
 </template>
 
 <script>
+
+    const AppNewNote = () => import('~/components/new-note.vue')
+    const AppNotes = () => import('~/components/notes.vue')
     export default {
-        
+        components: {
+            AppNewNote,
+            AppNotes
+        },
+        data() {
+            return {
+                todoList: [
+                    {
+                        title: 'Новая задача',
+                        todo: [
+                            {
+                                
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
     }
 </script>
 
@@ -29,9 +50,11 @@
         background-color: #F8F8F8
         display: flex
         flex-direction: column
+        font-family: 'Roboto-Regular'
     
     .todo__header
         +size(10)
+        +size-xs(11)
         display: flex
         align-items: center
         margin: 0 auto
@@ -44,6 +67,7 @@
     
     .todo__wrapper
         +size(10)
+        +size-xs(11)
         height: 80vh
         border-top: 1px solid #e4e4e4
         background-color: #fff
@@ -52,4 +76,5 @@
         margin-top: 20px
         border-radius: 4px
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
+        overflow: hidden
 </style>
