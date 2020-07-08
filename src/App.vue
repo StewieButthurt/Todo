@@ -18,22 +18,16 @@
     const AppNewNote = () => import('~/components/new-note.vue')
     const AppNotes = () => import('~/components/notes.vue')
     export default {
+        mounted() {
+            console.log(this.todoList)
+        },
         components: {
             AppNewNote,
             AppNotes
         },
-        data() {
-            return {
-                todoList: [
-                    {
-                        title: 'Новая задача',
-                        todo: [
-                            {
-                                
-                            }
-                        ]
-                    }
-                ]
+        computed: {
+            todoList() {
+                return this.$store.getters['todoList/todoList']
             }
         }
     }

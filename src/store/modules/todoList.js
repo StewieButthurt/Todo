@@ -1,5 +1,19 @@
 const state = () => ({
-    todoList: []
+    todoList: [{
+        title: 'Новая задача',
+        todo: [
+
+            {
+                status: false,
+                title: 'Пункт 1'
+            },
+            {
+                status: false,
+                title: 'Пункт 2'
+            }
+
+        ]
+    }]
 })
 
 const mutations = {
