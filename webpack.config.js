@@ -84,8 +84,9 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             sassOptions: {
-                                indentedSyntax: true
-                            }
+                                indentedSyntax: true,
+                            },
+                            additionalData: `@import "~/assets/smart-grid.sass"`
                         }
                     }
 
