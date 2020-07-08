@@ -86,7 +86,7 @@
         display: flex
         flex-direction: column
         margin-left: 20px
-        opacity: .5
+        opacity: .3
     
     .notes__todo-padding
         padding-top: 28px
