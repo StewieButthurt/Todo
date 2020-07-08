@@ -26,6 +26,8 @@
         margin-bottom: 2px
         align-items: center
         width: 35vw
+        +xs-block
+            width: 70vw
     
     .todo-component__checkbox
         width: 16px
@@ -36,6 +38,7 @@
         height: 16px
         border: 1px solid black
         fill: black
+        background-color: rgb(46, 170, 220)
     
     .todo-component__checkbox svg
         width: 12px

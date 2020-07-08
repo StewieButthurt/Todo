@@ -66,10 +66,16 @@
         justify-content: space-between
         border-bottom: 1px solid #e4e4e4
         user-select: none
-        // min-width: max-content
         cursor: pointer
         transition-duration: .15s
         overflow: hidden
+        position: relative
+        +xs-block
+            flex-direction: column
+            height: auto
+            align-items: flex-start
+            padding-top: 20px
+            padding-bottom: 20px
     
     .notes:hover
         background-color: #f2f2f2
@@ -82,6 +88,9 @@
         max-width: 30vw
         width: 100%
         overflow: hidden
+        +xs-block
+            max-width: 100%
+        
     .notes__todo
         display: flex
         flex-direction: column
@@ -90,6 +99,8 @@
     
     .notes__todo-padding
         padding-top: 28px
+        +xs-block
+            padding-top: 15px
     
     .notes__button-delete
         display: flex
@@ -100,6 +111,13 @@
         height: 30px
         margin-right: 20px
         margin-left: 20px
+        +xs-block
+            position: absolute
+            right: 20px
+            margin-right: 0px
+            margin-left: 0px
+            top: 10px
+
     
     .notes__button-delete:hover
         fill: #921f1f
