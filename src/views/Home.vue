@@ -30,6 +30,15 @@
     const AppNewNote = () => import('~/components/new-note.vue')
     const AppNotes = () => import('~/components/notes.vue')
     export default {
+        async mounted() {
+            this.todoList.forEach((item, index) => {
+                if(item.title === '') {
+                    this.$store.dispatch('todoList/deleteItem', {
+                        index: index
+                    })
+                }
+            })
+        },
         components: {
             AppNewNote,
             AppNotes
@@ -51,12 +60,14 @@
             },
             async changeTitle({title, index}) {
                 this.$store.dispatch('todoList/setTitle', {
-                    title: this.localTitle,
-                    index: this.index
+                    title: title,
+                    index: index
                 })
             },
-            async clickNotes() {
-                this.$router.push('/edit')
+            async clickNotes({index, title}) {
+                if(title !== '') {
+                    this.$router.push('/edit')
+                }
             }
         }
     }
