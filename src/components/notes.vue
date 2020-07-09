@@ -1,9 +1,16 @@
 <template>
     <div class="notes">
         <div class="notes__title"
+            v-if="index > 0 || !accessEditTitle"
         >
             {{title}}
         </div>
+        <input class="notes__title notes__title-write-text"
+            v-model="localTitle"
+            placeholder="Untitled"
+            @blur="changeTitle()"
+            v-if="index === 0 && accessEditTitle"
+        >
         <div class="notes__todo" 
             id="notes__todo"
             :class="{'notes__todo-padding' : padding}"
@@ -26,6 +33,7 @@
     const AppTodo = () => import('~/components/todo.vue')
     export default {
         async mounted() {
+            this.localTitle = this.title
             this.todo.forEach((item, index) => {
                 if(index < 3) {
                     this.threeTodo.push(item)
@@ -35,14 +43,18 @@
         props: [
             'title',
             'todo',
-            'index'
+            'index',
+            'todoList',
+            'accessEditTitle'
         ],
         components: {
             AppTodo
         },
         data() {
             return {
-                threeTodo: []
+                threeTodo: [],
+                localTitle: '',
+                focus: false
             }
         },
         computed: {
@@ -52,6 +64,19 @@
                 } else {
                     return false
                 }
+            }
+        },
+        watch: {
+            title(val) {
+                this.localTitle = val
+            }
+        },
+        methods: {
+            async changeTitle() {
+                this.$store.dispatch('todoList/setTitle', {
+                    title: this.localTitle,
+                    index: this.index
+                })
             }
         }
     }
@@ -91,6 +116,16 @@
         +xs-block
             max-width: 100%
         
+    
+    .notes__title-write-text
+        width: inherit
+        min-width: 150px
+        padding: 4px 6px
+        outline: none
+        text-overflow: clip
+        border: none
+        background-color: transparent 
+    
     .notes__todo
         display: flex
         flex-direction: column
