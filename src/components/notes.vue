@@ -1,5 +1,7 @@
 <template>
-    <div class="notes-wrapper">
+    <div class="notes-wrapper"
+        @click="clickNotes()"
+    >
         <div class="notes"
         :class="{'notes-fade' : index === 0 && title === ''}"
         >
@@ -78,10 +80,10 @@
         },
         methods: {
             async changeTitle() {
-                this.$store.dispatch('todoList/setTitle', {
-                    title: this.localTitle,
-                    index: this.index
-                })
+                this.$emit('changeTitle')
+            },
+            async clickNotes() {
+                this.$emit('clickNotes')
             }
         }
     }
