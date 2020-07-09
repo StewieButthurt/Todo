@@ -1,10 +1,5 @@
 <template>
     <div class="todo">
-        <div class="todo__header">
-            <div class="todo__header-title">
-                Todo List
-            </div>
-        </div>
         <router-view />
     </div>
     
@@ -28,6 +23,19 @@
         display: flex
         flex-direction: column
         font-family: 'Roboto-Regular'
+    
+    .todo__wrapper
+        +size(10)
+        +size-xs(11)
+        height: 80vh
+        border-top: 1px solid #e4e4e4
+        background-color: #fff
+        margin: 0 auto
+        margin-top: 20px
+        border-radius: 4px
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
+        overflow-y: auto
+        overflow-x: hidden
     
     .todo__header
         +size(10)
