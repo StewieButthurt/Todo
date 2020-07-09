@@ -20,8 +20,10 @@
                 :accessEditTitle="accessEditTitle"
                 @changeTitle="changeTitle"
                 @clickNotes="clickNotes"
+                @clickDelete="clickDelete"
             />
         </div>
+        <app-overlay />
     </div>
 </template>
 
@@ -29,6 +31,7 @@
 
     const AppNewNote = () => import('~/components/new-note.vue')
     const AppNotes = () => import('~/components/notes.vue')
+    const AppOverlay = () => import('~/components/overlay/delete.vue')
     export default {
         async mounted() {
             this.todoList.forEach((item, index) => {
@@ -41,7 +44,8 @@
         },
         components: {
             AppNewNote,
-            AppNotes
+            AppNotes,
+            AppOverlay
         },
         computed: {
             todoList() {
@@ -68,6 +72,9 @@
                 if(title !== '') {
                     this.$router.push('/edit')
                 }
+            },
+            async clickDelete({index}) {
+
             }
         }
     }
