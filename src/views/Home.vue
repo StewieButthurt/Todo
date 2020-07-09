@@ -7,14 +7,17 @@
         </div>
         <div class="todo__wrapper">
             <app-new-note 
+                :todoList="todoList"
                 @addTask="addTask"
             />
             <app-notes 
                 v-for="(item, index) in todoList"
-                :key="item.title"
+                :key="`${item.title}_${index}`"
                 :title="item.title"
                 :todo="item.todo"
                 :index="index"
+                :todoList="todoList"
+                :accessEditTitle="accessEditTitle"
                 @changeTitle="changeTitle"
             />
         </div>
@@ -33,11 +36,17 @@
         computed: {
             todoList() {
                 return this.$store.getters['todoList/todoList']
+            },
+            accessEditTitle() {
+                return this.$store.getters['todoList/accessEditTitle']
             }
         },
         methods: {
             async addTask() {
-                this.$router.push('/new')
+                this.$store.dispatch('todoList/addTodo')
+                if(!this.accessEditTitle) {
+                    this.$store.dispatch('todoList/setAccessEditTitle')
+                }
             },
             async changeTitle({title, index}) {
                 
