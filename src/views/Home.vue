@@ -1,16 +1,23 @@
 <template>
-    <div class="todo__wrapper">
-        <app-new-note 
-            @addTask="addTask"
-        />
-        <app-notes 
-            v-for="(item, index) in todoList"
-            :key="item.title"
-            :title="item.title"
-            :todo="item.todo"
-            :index="index"
-            @changeTitle="changeTitle"
-        />
+    <div class="todo__container">
+        <div class="todo__header">
+            <div class="todo__header-title">
+                Todo List
+            </div>
+        </div>
+        <div class="todo__wrapper">
+            <app-new-note 
+                @addTask="addTask"
+            />
+            <app-notes 
+                v-for="(item, index) in todoList"
+                :key="item.title"
+                :title="item.title"
+                :todo="item.todo"
+                :index="index"
+                @changeTitle="changeTitle"
+            />
+        </div>
     </div>
 </template>
 
@@ -30,7 +37,7 @@
         },
         methods: {
             async addTask() {
-                
+                this.$router.push('/new')
             },
             async changeTitle({title, index}) {
                 
@@ -40,16 +47,5 @@
 </script>
 
 <style lang="sass">
-    .todo__wrapper
-        +size(10)
-        +size-xs(11)
-        height: 80vh
-        border-top: 1px solid #e4e4e4
-        background-color: #fff
-        margin: 0 auto
-        margin-top: 20px
-        border-radius: 4px
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
-        overflow-y: auto
-        overflow-x: hidden
+    
 </style>
