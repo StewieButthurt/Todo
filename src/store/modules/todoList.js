@@ -1,11 +1,10 @@
 const state = () => ({
     todoList: [{
         title: 'Текст для теста ',
-        // data:
         todo: [
 
             {
-                status: false,
+                status: true,
                 title: 'Пункт 1 текст для теста'
             },
             {
