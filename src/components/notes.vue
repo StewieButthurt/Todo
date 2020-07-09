@@ -6,7 +6,9 @@
         :class="{'notes-fade' : index === 0 && title === ''}"
         >
             <div class="notes__title"
-                v-if="index > 0 || !accessEditTitle"
+                v-if="index > 0 || 
+                !accessEditTitle ||
+                todoList[0].title !== ''"
             >
                 {{title}}
             </div>
@@ -14,7 +16,9 @@
                 v-model="localTitle"
                 placeholder="Untitled"
                 @blur="changeTitle()"
-                v-if="index === 0 && accessEditTitle"
+                v-if="index === 0 && 
+                accessEditTitle && 
+                todoList[0].title === ''"
             >
             <div class="notes__todo" 
                 id="notes__todo"
@@ -80,10 +84,16 @@
         },
         methods: {
             async changeTitle() {
-                this.$emit('changeTitle')
+                this.$emit('changeTitle', {
+                    title: this.localTitle,
+                    index: this.index
+                })
             },
             async clickNotes() {
-                this.$emit('clickNotes')
+                this.$emit('clickNotes',{
+                    index: this.index,
+                    title: this.title
+                })
             }
         }
     }
