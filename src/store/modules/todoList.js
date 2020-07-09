@@ -37,6 +37,9 @@ const mutations = {
     },
     setAccessEditTitle(state) {
         state.accessEditTitle = true
+    },
+    deleteItem(state, { index }) {
+        state.todoList.splice(index, 1)
     }
 }
 
@@ -49,6 +52,9 @@ const actions = {
     },
     async setAccessEditTitle({ commit }) {
         commit('setAccessEditTitle')
+    },
+    async deleteItem({ commit }, { index }) {
+        commit('deleteItem', { index })
     }
 }
 
