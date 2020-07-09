@@ -21,7 +21,8 @@ const state = () => ({
             }
 
         ]
-    }]
+    }],
+    accessEditTitle: false
 })
 
 const mutations = {
@@ -33,6 +34,9 @@ const mutations = {
     },
     setTitle(state, { title, index }) {
         state.todoList[index].title = title
+    },
+    setAccessEditTitle(state) {
+        state.accessEditTitle = true
     }
 }
 
@@ -42,11 +46,15 @@ const actions = {
     },
     async setTitle({ commit }, { title, index }) {
         commit('setTitle', { title, index })
+    },
+    async setAccessEditTitle({ commit }) {
+        commit('setAccessEditTitle')
     }
 }
 
 const getters = {
-    todoList: state => state.todoList
+    todoList: state => state.todoList,
+    accessEditTitle: state => state.accessEditTitle
 }
 
 export default {
