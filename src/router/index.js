@@ -23,7 +23,7 @@ export default new Router({
             path: '/new',
             component: New,
             meta: {
-                title: 'Create Task',
+                title: 'New Task',
                 forVisitors: true
             }
         }
