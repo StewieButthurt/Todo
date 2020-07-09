@@ -36,6 +36,7 @@
         width: 100%
         cursor: pointer
         transition-duration: .15s
+        z-index: 5
     
     .new-note:hover
         background-color: #f2f2f2
