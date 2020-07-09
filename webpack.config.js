@@ -43,7 +43,8 @@ module.exports = {
     optimization: optimization(),
     devServer: {
         port: 3000,
-        hot: isDev
+        hot: isDev,
+        historyApiFallback: true
     },
     devtool: isDev ? 'source-map' : '',
     module: {
