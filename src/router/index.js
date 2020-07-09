@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from 'vue-router';
 import Home from '~/views/Home.vue'
-const New = () =>
-    import ('~/views/New.vue')
+const Edit = () =>
+    import ('~/views/Edit.vue')
 
 Vue.use(Router)
 
@@ -20,10 +20,10 @@ export default new Router({
             }
         },
         {
-            path: '/new',
-            component: New,
+            path: '/edit',
+            component: Edit,
             meta: {
-                title: 'New Task',
+                title: 'Edit Task',
                 forVisitors: true
             }
         }
