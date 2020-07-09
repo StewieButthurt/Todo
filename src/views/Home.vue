@@ -19,6 +19,7 @@
                 :todoList="todoList"
                 :accessEditTitle="accessEditTitle"
                 @changeTitle="changeTitle"
+                @clickNotes="clickNotes"
             />
         </div>
     </div>
@@ -49,7 +50,13 @@
                 }
             },
             async changeTitle({title, index}) {
-                
+                this.$store.dispatch('todoList/setTitle', {
+                    title: this.localTitle,
+                    index: this.index
+                })
+            },
+            async clickNotes() {
+                this.$router.push('/edit')
             }
         }
     }
