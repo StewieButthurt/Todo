@@ -31,10 +31,10 @@
         font-family: 'Roboto-Regular'
     
     .fade-page-enter-active
-        animation: fade-page-enter .5s
+        animation: fade-page-enter .3s linear
 
     .fade-page-leave-active
-        animation: fade-page-enter .5s reverse
+        animation: fade-page-enter .3s linear reverse
     
     @keyframes fade-page-enter
         0%
@@ -51,8 +51,8 @@
         margin-top: 20px
         border-radius: 4px
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
-        overflow-y: auto
         overflow-x: hidden
+        overflow-y: auto
     
     .todo__header
         +size(10)
@@ -66,5 +66,17 @@
         font-size: 40px
         font-family: 'Roboto-Medium'
         color: rgb(55, 53, 47)
+    
+    .fade-hint-enter-active
+        animation: fade-hint-enter .3s linear 
+
+    .fade-hint-leave-active
+        animation: fade-hint-enter .3s linear reverse
+    
+    @keyframes fade-hint-enter
+        0%
+            opacity: 0
+        100%
+            opacity: .8
     
 </style>
