@@ -40,6 +40,9 @@ const mutations = {
     },
     deleteItem(state, { index }) {
         state.todoList.splice(index, 1)
+    },
+    setTodoList(state, arr) {
+        state.todoList = arr
     }
 }
 
@@ -55,6 +58,9 @@ const actions = {
     },
     async deleteItem({ commit }, { index }) {
         commit('deleteItem', { index })
+    },
+    async setTodoList({ commit }, arr) {
+        commit('setTodoList', arr)
     }
 }
 
