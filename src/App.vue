@@ -1,6 +1,12 @@
 <template>
     <div class="todo">
-        <router-view />
+        <transition 
+            name="fade-page" 
+            appear
+            mode="out-in"
+        >
+            <router-view />
+        </transition>
     </div>
     
 </template>
@@ -24,6 +30,17 @@
         flex-direction: column
         font-family: 'Roboto-Regular'
     
+    .fade-page-enter-active
+        animation: fade-page-enter .5s
+
+    .fade-page-leave-active
+        animation: fade-page-enter .5s reverse
+    
+    @keyframes fade-page-enter
+        0%
+            opacity: 0
+        100%
+            opacity: 1
     .todo__wrapper
         +size(10)
         +size-xs(11)
