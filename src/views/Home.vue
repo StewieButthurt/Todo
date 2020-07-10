@@ -21,6 +21,8 @@
                 @changeTitle="changeTitle"
                 @clickNotes="clickNotes"
                 @clickDelete="clickDelete"
+                @enterButtonDelete="enterButtonDelete"
+                @leaveButtonDelete="leaveButtonDelete"
             />
         </div>
         <app-overlay
@@ -28,6 +30,18 @@
             @clickOverlayCancel="clickOverlayCancel"
             @clickOverlayDelete="clickOverlayDelete"
         />
+        <transition 
+            name="fade-hint"
+            mode="out-in"
+        >
+            <app-hint 
+                :title="'Delete note'"
+                :top="top"
+                :left="left"
+                :paddingLeft="28"
+                v-show="hintStatus"
+        />
+        </transition>
     </div>
 </template>
 
@@ -36,6 +50,7 @@
     const AppNewNote = () => import('~/components/new-note.vue')
     const AppNotes = () => import('~/components/notes.vue')
     const AppOverlay = () => import('~/components/overlay/delete.vue')
+    const AppHint = () => import('~/components/hints/index.vue')
     export default {
         async mounted() {
             this.todoList.forEach((item, index) => {
@@ -49,7 +64,8 @@
         components: {
             AppNewNote,
             AppNotes,
-            AppOverlay
+            AppOverlay,
+            AppHint
         },
         computed: {
             todoList() {
@@ -62,7 +78,10 @@
         data() {
             return {
                 question: 'default',
-                noteIndex: false
+                noteIndex: false,
+                hintStatus: false,
+                top: false, 
+                left: false
             }
         },
         methods: {
@@ -99,6 +118,14 @@
                     }
                 })
                 this.$store.dispatch('todoList/setTodoList', arr)
+            },
+            async enterButtonDelete({top, left}) {
+                this.hintStatus = true
+                this.top = top,
+                this.left = left
+            },
+            async leaveButtonDelete() {
+                this.hintStatus = false
             }
         }
     }
