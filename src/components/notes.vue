@@ -189,6 +189,8 @@
         height: 30px
         margin-right: 20px
         margin-left: 20px
+        fill: black
+        transition: fill .2s
         +xs-block
             position: absolute
             right: 20px
