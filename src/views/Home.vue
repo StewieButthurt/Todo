@@ -23,7 +23,11 @@
                 @clickDelete="clickDelete"
             />
         </div>
-        <app-overlay />
+        <app-overlay
+            :question="question"
+            @clickOverlayCancel="clickOverlayCancel"
+            @clickOverlayDelete="clickOverlayDelete"
+        />
     </div>
 </template>
 
@@ -55,6 +59,12 @@
                 return this.$store.getters['todoList/accessEditTitle']
             }
         },
+        data() {
+            return {
+                question: 'default',
+                noteIndex: false
+            }
+        },
         methods: {
             async addTask() {
                 this.$store.dispatch('todoList/addTodo')
@@ -74,7 +84,21 @@
                 }
             },
             async clickDelete({index}) {
-
+                this.question = true
+                this.noteIndex = index
+            },
+            async clickOverlayCancel() {
+                this.question = false
+            },
+            async clickOverlayDelete() {
+                this.question = false
+                const arr = []
+                this.todoList.forEach((item, index) => {
+                    if(this.noteIndex !== index) {
+                        arr.push(item)
+                    }
+                })
+                this.$store.dispatch('todoList/setTodoList', arr)
             }
         }
     }
