@@ -9,6 +9,15 @@ const mutations = {
     },
     setStatus(state, { index, status }) {
         state.editNote.todo[index].status = status
+    },
+    addTodo(state, title) {
+        state.editNote.todo.push({
+            status: false,
+            title: title
+        })
+    },
+    deleteTodo(state, index) {
+        state.editNote.todo.splice(index, 1)
     }
 }
 
@@ -18,6 +27,12 @@ const actions = {
     },
     async setStatus({ commit }, { index, status }) {
         commit('setStatus', { index, status })
+    },
+    async addTodo({ commit }, title) {
+        commit('addTodo', title)
+    },
+    async deleteTodo({ commit }, index) {
+        commit('deleteTodo', index)
     }
 }
 
