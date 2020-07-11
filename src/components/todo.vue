@@ -2,6 +2,7 @@
     <div class="todo-component">
         <div class="todo-component__checkbox"
             :class="{'todo-component__checkbox-active' : status}"
+            @click="clickCheckbox()"
         >
             <svg v-if="status" viewBox="0 0 14 14" class="check"><polygon points="5.5 11.9993304 14 3.49933039 12.5 2 5.5 8.99933039 1.5 4.9968652 0 6.49933039"></polygon></svg>
         </div>
@@ -16,8 +17,20 @@
         props: [
             'title',
             'index',
-            'status'
-        ]
+            'status',
+            'edit'
+        ],
+        methods: {
+            async clickCheckbox() {
+                if(this.edit) {
+                    this.$emit('clickCheckbox', {
+                        index: this.index,
+                        title: this.title,
+                        status: this.status
+                    })
+                }
+            }
+        }
     }
 </script>
 
@@ -26,6 +39,7 @@
         display: flex
         margin-top: 2px
         margin-bottom: 2px
+        user-select: none
         align-items: center
         width: 35vw
         max-width: 490px
