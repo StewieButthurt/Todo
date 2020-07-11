@@ -28,6 +28,7 @@
         margin-bottom: 2px
         align-items: center
         width: 35vw
+        max-width: 490px
         +xs-block
             width: 70vw
     
