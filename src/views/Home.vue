@@ -18,6 +18,7 @@
                 :index="index"
                 :todoList="todoList"
                 :accessEditTitle="accessEditTitle"
+                :edit="false"
                 @changeTitle="changeTitle"
                 @clickNotes="clickNotes"
                 @clickDelete="clickDelete"
@@ -101,6 +102,10 @@
             },
             async clickNotes({index, title}) {
                 if(title !== '') {
+                    await this.$store.dispatch('editNote/setNote', {
+                        todo: this.todoList[index],
+                        index: index
+                    })
                     this.$router.push('/edit')
                 }
             },
