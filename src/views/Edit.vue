@@ -26,6 +26,7 @@
                     :edit="true"
                     @clickCheckbox="clickCheckbox"
                     @clickDeleteTodo="clickDeleteTodo"
+                    @blurInputTodo="blurInputTodo"
                 />
                 <div class="todo-edit__input">
                     <div class="todo-edit__input-logo">
@@ -58,6 +59,7 @@
                     :edit="true"
                     @clickCheckbox="clickCheckbox"
                     @clickDeleteTodo="clickDeleteTodo"
+                    @blurInputTodo="blurInputTodo"
                 />
             </div>
             <div class="todo-edit__dashboard">
@@ -116,6 +118,13 @@
             },
             async clickDeleteTodo({index, title, status}) {
                 this.$store.dispatch('editNote/deleteTodo', index)
+            },
+            async blurInputTodo({index, title, status}) {
+                this.$store.dispatch('editNote/setTitleTodo', {
+                    index: index,
+                    title: title,
+                    status: status
+                })
             }
         }
     }
