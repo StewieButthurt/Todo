@@ -25,7 +25,19 @@
                     :status="item.status"
                     :edit="true"
                     @clickCheckbox="clickCheckbox"
+                    @clickDeleteTodo="clickDeleteTodo"
                 />
+                <div class="todo-edit__input">
+                    <div class="todo-edit__input-logo">
+                    </div>
+                    <input type="text" 
+                    placeholder="Now todo"
+                    spellcheck="false"
+                    v-model="todo"
+                    @blur="blurInput()"
+                    @keyup.enter="blurInput()"
+                    >
+                </div>
             </div>
             <div class="todo-edit__line"
                 v-if="todoEnabled > 0"
@@ -45,6 +57,7 @@
                     :status="item.status"
                     :edit="true"
                     @clickCheckbox="clickCheckbox"
+                    @clickDeleteTodo="clickDeleteTodo"
                 />
             </div>
             <div class="todo-edit__dashboard">
@@ -57,6 +70,11 @@
 <script>
     const AppTodo = () => import('~/components/todo.vue')
     export default {
+        data() {
+            return {
+                todo: ''
+            }
+        },
         computed: {
             editNote() {
                 return this.$store.getters['editNote/editNote']
@@ -89,6 +107,15 @@
                     index: index,
                     status: !status
                 })
+            },
+            async blurInput() {
+                if(this.todo !== '') {
+                    await this.$store.dispatch('editNote/addTodo', this.todo)
+                    this.todo = ''
+                }
+            },
+            async clickDeleteTodo({index, title, status}) {
+                this.$store.dispatch('editNote/deleteTodo', index)
             }
         }
     }
@@ -113,19 +140,38 @@
         display: flex
         flex-direction: column
         padding-left: 25px
-        padding-right: 90px
         margin-top: 20px
     
     #todo-edit__todo-list,
     #todo-edit__todo-list-enabled
-        font-size: 20px
+        font-size: 18px
+    
+    .todo-edit__input
+        display: flex
+        align-items: center
+        margin-top: 7px
+        color: #202124
+        // font-size: 16px
+    
+    .todo-edit__input input
+        outline: none
+        border: none
+    
+    .todo-edit__input-logo
+        opacity: .7
+        width: 20px
+        height: 20px
+        margin-right: 15px
+        background: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjE4cHgiIHdpZHRoPSIxOHB4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0iIzAwMDAwMCI+CiA8cGF0aCBkPSJtMzggMjZoLTEydjEyaC00di0xMmgtMTJ2LTRoMTJ2LTEyaDR2MTJoMTJ2NHoiLz4KIDxwYXRoIGQ9Im0wIDBoNDh2NDhoLTQ4eiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K) no-repeat center
     
     #todo-edit__todo-list .todo-component,
     #todo-edit__todo-list-enabled .todo-component
         margin-top: 7px
         margin-bottom: 7px
         width: 100%
+        padding-right: 145px
         max-width: none
+        cursor: text
     
     #todo-edit__todo-list-enabled .todo-component
         opacity: .5
@@ -142,15 +188,15 @@
     
     #todo-edit__todo-list .todo-component__checkbox,
     #todo-edit__todo-list-enabled .todo-component__checkbox
-        width: 20px
-        min-width: 20px
-        height: 20px
+        width: 18px
+        min-width: 18px
+        height: 18px
         cursor: pointer
     
     #todo-edit__todo-list .todo-component__checkbox svg,
     #todo-edit__todo-list-enabled .todo-component__checkbox svg
-        width: 16px
-        height: 16px
+        width: 14px
+        height: 14px
     
     .todo-edit__line
         width: auto
@@ -168,7 +214,7 @@
         right: 0px
         top: 0px
         width: 60px
-        background: #363636
+        background: #383838
         border-radius: 0px 5px 0px 0px
         height: 100%
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
