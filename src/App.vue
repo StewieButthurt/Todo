@@ -45,6 +45,7 @@
         +size(10)
         +size-xs(11)
         height: 80vh
+        max-width: 1140px
         border-top: 1px solid #e4e4e4
         background-color: #fff
         margin: 0 auto
@@ -57,6 +58,7 @@
     .todo__header
         +size(10)
         +size-xs(11)
+        max-width: 1140px
         display: flex
         align-items: center
         margin: 0 auto
