@@ -10,10 +10,18 @@
             <svg v-if="status" viewBox="0 0 14 14" class="check"><polygon points="5.5 11.9993304 14 3.49933039 12.5 2 5.5 8.99933039 1.5 4.9968652 0 6.49933039"></polygon></svg>
         </div>
         <div class="todo-component__title"
+            v-if="!edit || status"
             :class="{'todo-component__title-decoration' : status}"
         >
             {{title}}
         </div>
+        <input 
+            type="text"
+            v-model="localTitle"
+            v-if="edit && !status"
+            @keyup.enter="blurInput()"
+            @blur="blurInput()"
+        >
         <div class="todo-component__button-delete-wrapper"
             :class="{'todo-component__button-delete-wrapper-enter' : enter}"
             @click="clickDeleteTodo()"
@@ -28,9 +36,13 @@
 
 <script>
     export default {
+        async mounted() {
+            this.localTitle = this.title
+        },
         data() {
             return {
                 enter: false,
+                localTitle: ''
             }
         },
         props: [
@@ -57,6 +69,19 @@
                         status: this.status
                     })
                 }
+            },
+            async blurInput() {
+                if(this.edit) {
+                    if(this.localTitle !== '') {
+                        await this.$emit('blurInputTodo', {
+                            index: this.index,
+                            title: this.localTitle,
+                            status: this.status
+                        })
+                    } else {
+                        this.localTitle = this.title
+                    }
+                }
             }
         }
     }
@@ -74,6 +99,11 @@
         max-width: 490px
         +xs-block
             width: 70vw
+    
+    .todo-component input
+        outline: none
+        border: none
+        margin-left: 15px
     
     .todo-component__checkbox
         width: 16px
@@ -125,11 +155,12 @@
         transition: opacity .2s
     
     .todo-component__button-delete
-        width: 10px
-        height: 10px
+        width: 17px
+        height: 17px
         opacity: 0
         transition: opacity .2s
         background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDAwIj4KICA8cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyIDE5IDYuNDF6Ii8+Cjwvc3ZnPgo=) no-repeat center
+        background-size: cover
 
     
     .todo-component__button-delete-wrapper-enter
