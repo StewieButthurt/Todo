@@ -35,6 +35,7 @@
                     :status="item.status"
                     :edit="edit"
                     @clickCheckbox="clickCheckbox"
+                    @clickDeleteTodo="clickDeleteTodo"
                 />
             </div>
             <div class="notes__button-delete"
@@ -77,7 +78,6 @@
             return {
                 threeTodo: [],
                 localTitle: '',
-                focus: false,
                 enter: false
             }
         },
@@ -136,6 +136,13 @@
             },
             async clickCheckbox({index, title, status}) {
                 this.$emit('clickCheckbox',{
+                    index: index,
+                    title: title,
+                    status: status
+                })
+            },
+            async clickDeleteTodo({index, title, status}) {
+                this.$emit('clickDeleteTodo',{
                     index: index,
                     title: title,
                     status: status
