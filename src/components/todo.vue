@@ -1,5 +1,8 @@
 <template>
-    <div class="todo-component">
+    <div class="todo-component"
+        @mouseenter="enter = true"
+        @mouseleave="enter = false"
+    >
         <div class="todo-component__checkbox"
             :class="{'todo-component__checkbox-active' : status}"
             @click="clickCheckbox()"
@@ -11,11 +14,25 @@
         >
             {{title}}
         </div>
+        <div class="todo-component__button-delete-wrapper"
+            :class="{'todo-component__button-delete-wrapper-enter' : enter}"
+            @click="clickDeleteTodo()"
+        >
+            <div class="todo-component__button-delete"
+                :class="{'todo-component__button-delete-enter': enter}"
+            >
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                enter: false,
+            }
+        },
         props: [
             'title',
             'index',
@@ -31,6 +48,15 @@
                         status: this.status
                     })
                 }
+            },
+            async clickDeleteTodo() {
+                if(this.edit) {
+                    this.$emit('clickDeleteTodo', {
+                        index: this.index,
+                        title: this.title,
+                        status: this.status
+                    })
+                }
             }
         }
     }
@@ -41,6 +67,7 @@
         display: flex
         margin-top: 2px
         margin-bottom: 2px
+        position: relative
         user-select: none
         align-items: center
         width: 35vw
@@ -81,4 +108,34 @@
     
     .todo-component__title-decoration
         text-decoration: line-through
+    
+    .todo-component__button-delete-wrapper
+        width: 25px
+        height: 25px
+        border-radius: 50%
+        position: absolute
+        right: 100px
+        top: 0px
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: #c0bfbf
+        cursor: pointer
+        opacity: 0
+        transition: opacity .2s
+    
+    .todo-component__button-delete
+        width: 10px
+        height: 10px
+        opacity: 0
+        transition: opacity .2s
+        background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDAwIj4KICA8cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyIDE5IDYuNDF6Ii8+Cjwvc3ZnPgo=) no-repeat center
+
+    
+    .todo-component__button-delete-wrapper-enter
+        opacity: .5
+    
+    .todo-component__button-delete-wrapper:hover,
+    .todo-component__button-delete-enter
+        opacity: 1
 </style>
