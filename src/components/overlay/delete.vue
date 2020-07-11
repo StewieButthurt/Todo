@@ -13,7 +13,7 @@
             }"
         >
             <div class="overlay-delete__question-text">
-                Вы точно хотите удалить заметку? 
+                {{message}}
             </div>
             <div class="overlay-delete__question-buttons">
                 <div class="overlay-delete__button"
@@ -34,7 +34,8 @@
 <script>
     export default {
         props: [
-            'question'
+            'question',
+            'message'
         ],
         methods: {
             async clickOverlayCancel() {
