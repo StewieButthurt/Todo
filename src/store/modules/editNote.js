@@ -18,6 +18,9 @@ const mutations = {
     },
     deleteTodo(state, index) {
         state.editNote.todo.splice(index, 1)
+    },
+    setTitleTodo(state, { index, title }) {
+        state.editNote.todo[index].title = title
     }
 }
 
@@ -33,6 +36,9 @@ const actions = {
     },
     async deleteTodo({ commit }, index) {
         commit('deleteTodo', index)
+    },
+    async setTitleTodo({ commit }, { index, title }) {
+        commit('setTitleTodo', { index, title })
     }
 }
 
