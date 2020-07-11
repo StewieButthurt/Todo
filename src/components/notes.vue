@@ -33,6 +33,8 @@
                     :index="index"
                     :title="item.title"
                     :status="item.status"
+                    :edit="edit"
+                    @clickCheckbox="clickCheckbox"
                 />
             </div>
             <div class="notes__button-delete"
@@ -65,7 +67,8 @@
             'todo',
             'index',
             'todoList',
-            'accessEditTitle'
+            'accessEditTitle',
+            'edit'
         ],
         components: {
             AppTodo
@@ -130,6 +133,13 @@
             },
             async leaveButtonDelete() {
                 this.$emit('leaveButtonDelete')
+            },
+            async clickCheckbox({index, title, status}) {
+                this.$emit('clickCheckbox',{
+                    index: index,
+                    title: title,
+                    status: status
+                })
             }
         }
     }
