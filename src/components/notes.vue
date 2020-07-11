@@ -1,6 +1,9 @@
 <template>
     <div class="notes-wrapper"
         @click="clickNotes()"
+        :class="{'notes-hover' : enter}"
+        @mouseenter="enter = true"
+        @mouseleave="enter = false"
     >
         <div class="notes"
         :class="{'notes-fade' : index === 0 && title === ''}"
@@ -34,6 +37,7 @@
             </div>
             <div class="notes__button-delete"
                 :ref="`${title}${index}`"
+                :class="{'notes__button-delete-mouseenter' : enter}"
                 @click.stop="clickDelete()"
                 @mouseenter.stop="enterButtonDelete()"
                 @mouseleave.stop="leaveButtonDelete()"
@@ -70,7 +74,8 @@
             return {
                 threeTodo: [],
                 localTitle: '',
-                focus: false
+                focus: false,
+                enter: false
             }
         },
         computed: {
@@ -155,7 +160,7 @@
             padding-top: 20px
             padding-bottom: 20px
     
-    .notes:hover
+    .notes-hover
         background-color: #f2f2f2
         transition-duration: .15s
     
@@ -215,7 +220,8 @@
         margin-left: 20px
         position: relative
         fill: black
-        transition: fill .2s
+        transition: opacity .2s
+        opacity: 0
         +xs-block
             position: absolute
             right: 20px
@@ -223,9 +229,11 @@
             margin-left: 0px
             top: 10px
 
+    .notes__button-delete-mouseenter
+        opacity: .5
     
     .notes__button-delete:hover
-        fill: #921f1f
+        opacity: 1
     
     .notes__button-delete svg
         width: 100%
