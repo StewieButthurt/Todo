@@ -26,6 +26,7 @@
             />
         </div>
         <app-overlay
+            :message="message"
             :question="question"
             @clickOverlayCancel="clickOverlayCancel"
             @clickOverlayDelete="clickOverlayDelete"
@@ -78,6 +79,7 @@
         data() {
             return {
                 question: 'default',
+                message: 'Вы точно хотите удалить заметку?',
                 noteIndex: false,
                 hintStatus: false,
                 top: false, 
