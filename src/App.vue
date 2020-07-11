@@ -54,6 +54,7 @@
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
         overflow-x: hidden
         overflow-y: auto
+        position: relative
     
     .todo__header
         +size(10)
