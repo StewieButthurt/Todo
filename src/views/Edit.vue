@@ -47,6 +47,9 @@
                     @clickCheckbox="clickCheckbox"
                 />
             </div>
+            <div class="todo-edit__dashboard">
+
+            </div>
         </div>
     </div>
 </template>
@@ -103,14 +106,14 @@
     .todo-edit__text
         font-size: 32px
         font-family: 'Roboto-Medium'
-        margin: 20px 0px 20px 20px
+        margin: 20px 90px 20px 20px
     
     .todo-edit__todo-list,
     .todo-edit__todo-list-enabled
         display: flex
         flex-direction: column
         padding-left: 25px
-        padding-right: 30px
+        padding-right: 90px
         margin-top: 20px
     
     #todo-edit__todo-list,
@@ -137,9 +140,6 @@
         white-space: normal
         margin-left: 15px
     
-    #todo-edit__todo-list-enabled .todo-component__title
-        text-decoration: line-through
-
     #todo-edit__todo-list .todo-component__checkbox,
     #todo-edit__todo-list-enabled .todo-component__checkbox
         width: 20px
@@ -157,5 +157,19 @@
         display: flex
         height: 1px
         background-color: #d3d3d3
-        margin: 20px 30px 0px 25px
+        margin: 20px 90px 0px 25px
+    
+    .todo-edit__dashboard
+        position: absolute
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-around
+        right: 0px
+        top: 0px
+        width: 60px
+        background: #363636
+        border-radius: 0px 5px 0px 0px
+        height: 100%
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
 </style>
