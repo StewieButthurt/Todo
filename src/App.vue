@@ -24,7 +24,7 @@
 
     .todo 
         width: 100%
-        height: 100vh
+        height: 100%
         background-color: #F8F8F8
         display: flex
         flex-direction: column
@@ -50,6 +50,7 @@
         background-color: #fff
         margin: 0 auto
         margin-top: 20px
+        margin-bottom: 40px
         border-radius: 4px
         box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
         overflow-x: hidden
