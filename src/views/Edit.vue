@@ -2,7 +2,7 @@
     <div class="todo__container">
         <div class="todo__header">
             <div class="todo__header-title">
-                Todo List
+                Редактирование заметки
             </div>
         </div>
         <div class="todo__wrapper"
@@ -36,12 +36,14 @@
                     @clickCheckbox="clickCheckbox"
                     @clickDeleteTodo="clickDeleteTodo"
                     @blurInputTodo="blurInputTodo"
+                    @enterDeleteTodo="enterDeleteTodo"
+                    @leaveDeleteTodo="leaveDeleteTodo"
                 />
                 <div class="todo-edit__input">
                     <div class="todo-edit__input-logo">
                     </div>
                     <input type="text" 
-                    placeholder="Now todo"
+                    placeholder="Новый пункт"
                     spellcheck="false"
                     v-model="todo"
                     @blur="blurInput()"
@@ -69,6 +71,8 @@
                     @clickCheckbox="clickCheckbox"
                     @clickDeleteTodo="clickDeleteTodo"
                     @blurInputTodo="blurInputTodo"
+                    @enterDeleteTodo="enterDeleteTodo"
+                    @leaveDeleteTodo="leaveDeleteTodo"
                 />
             </div>
         </div>
@@ -78,13 +82,28 @@
             :position="'fixed'"
             :width="'60px'"
             :height="'80vh'"
+            @enterButtonDashboard="enterButtonDashboard"
+            @leaveButtonDashboard="leaveButtonDashboard"
         />
+        <transition 
+            name="fade-hint"
+            mode="out-in"
+        >
+            <app-hint 
+                :title="titleHints"
+                :top="hintTop"
+                :left="hintLeft"
+                :paddingLeft="paddingLeft"
+                v-show="hintStatus"
+            />
+        </transition >
     </div>
 </template>
 
 <script>
     const AppTodo = () => import('~/components/todo.vue')
     const AppDashboard = () => import('~/components/dashboard.vue')
+    const AppHint = () => import('~/components/hints/index.vue')
     export default {
         async mounted() {
             this.localTitle = this.title
@@ -96,7 +115,12 @@
                 top: 0,
                 right: 0,
                 left: 0,
-                localTitle: ''
+                localTitle: '',
+                titleHints: false,
+                hintStatus: false,
+                paddingLeft: false,
+                hintTop: false,
+                hintLeft: false
             }
         },
         watch: {
@@ -142,7 +166,8 @@
         },
         components: {
             AppTodo,
-            AppDashboard
+            AppDashboard,
+            AppHint
         },
         methods: {
             async changeTitle() {
@@ -177,6 +202,16 @@
                     status: status
                 })
             },
+            async enterDeleteTodo({title, top, left, paddingLeft}) {
+                this.titleHints = title
+                this.paddingLeft = paddingLeft
+                this.hintTop = top
+                this.hintLeft = left
+                this.hintStatus = true
+            },
+            async leaveDeleteTodo() {
+                this.hintStatus = false
+            },
             async getCoord() {
                 const top = document
                     .getElementById('todo__wrapper-ref')
@@ -196,6 +231,16 @@
                 this.top = top
                 this.left = left
                 this.right = right
+            },
+            async enterButtonDashboard({title, top, left, paddingLeft}) {
+                this.titleHints = title
+                this.paddingLeft = paddingLeft
+                this.hintTop = top
+                this.hintLeft = left
+                this.hintStatus = true
+            },
+            async leaveButtonDashboard() {
+                this.hintStatus = false
             }
         }
     }
@@ -211,7 +256,7 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.2)
     
     .todo-edit__text
-        font-size: 32px
+        font-size: 25px
         font-family: 'Roboto-Medium'
         margin: 20px 90px 20px 20px
     
