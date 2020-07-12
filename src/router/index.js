@@ -1,10 +1,13 @@
 import Vue from "vue";
-import Router from 'vue-router';
+import Router from 'vue-router'
+import Store from '~/store/index.js'
 import Home from '~/views/Home.vue'
 const Edit = () =>
     import ('~/views/Edit.vue')
 
 Vue.use(Router)
+
+console.log(Store.getters['editNote/editNote'])
 
 export default new Router({
     mode: 'history',
@@ -12,7 +15,7 @@ export default new Router({
 
         {
             path: '/',
-            name: 'test',
+            name: 'Main',
             component: Home,
             meta: {
                 title: 'Мои заметки',
@@ -25,6 +28,15 @@ export default new Router({
             meta: {
                 title: 'Редактирование заметки',
                 forVisitors: true
+            },
+            beforeEnter: (to, from, next) => {
+                if (Store.getters['editNote/editNote'].length === 0) {
+                    next({
+                        name: 'Main'
+                    })
+                } else {
+                    next()
+                }
             }
         }
 
