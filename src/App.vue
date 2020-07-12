@@ -65,11 +65,13 @@
         align-items: center
         margin: 0 auto
         margin-top: 20px
+        text-align: center
     
     .todo__header-title
-        font-size: 40px
+        font-size: 32px
         font-family: 'Roboto-Medium'
         color: rgb(55, 53, 47)
+        margin: 0 auto
     
     .fade-hint-enter-active
         animation: fade-hint-enter .3s linear 
