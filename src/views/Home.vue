@@ -62,6 +62,10 @@
                     })
                 }
             })
+
+            await this.$store.dispatch('editNote/clearEditNoteHistory')
+            await this.$store.dispatch('editNote/clearNote')
+            await this.$store.dispatch('editNote/setEditNoteStatus', 0)
         },
         components: {
             AppNewNote,
