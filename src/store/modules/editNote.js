@@ -21,6 +21,9 @@ const mutations = {
     },
     setTitleTodo(state, { index, title }) {
         state.editNote.todo[index].title = title
+    },
+    setTitle(state, { title }) {
+        state.editNote.title = title
     }
 }
 
@@ -39,6 +42,9 @@ const actions = {
     },
     async setTitleTodo({ commit }, { index, title }) {
         commit('setTitleTodo', { index, title })
+    },
+    async setTitle({ commit }, { title }) {
+        commit('setTitle', { title })
     }
 }
 
