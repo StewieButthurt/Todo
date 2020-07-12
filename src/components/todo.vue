@@ -23,6 +23,10 @@
             @blur="blurInput()"
         >
         <div class="todo-component__button-delete-wrapper"
+            ref="todo-component__button-delete"
+            v-if="edit"
+            @mouseenter="enterDeleteTodo()"
+            @mouseleave="leaveDeleteTodo()"
             :class="{'todo-component__button-delete-wrapper-enter' : enter}"
             @click="clickDeleteTodo()"
         >
@@ -81,6 +85,30 @@
                     } else {
                         this.localTitle = this.title
                     }
+                }
+            },
+            async enterDeleteTodo() {
+                if(this.edit) {
+
+                    const left = this.$refs['todo-component__button-delete']
+                        .getBoundingClientRect()
+                        .left
+                    
+                    const top = this.$refs['todo-component__button-delete']
+                        .getBoundingClientRect()
+                        .top
+
+                    this.$emit('enterDeleteTodo', {
+                        title: 'Удалить пункт',
+                        top: top + 40,
+                        left: left,
+                        paddingLeft: 38
+                    })
+                }
+            },
+            async leaveDeleteTodo() {
+                if(this.edit) {
+                    this.$emit('leaveDeleteTodo')
                 }
             }
         }
