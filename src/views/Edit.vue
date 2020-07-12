@@ -194,6 +194,7 @@
             },
             async clickDeleteTodo({index, title, status}) {
                 this.$store.dispatch('editNote/deleteTodo', index)
+                this.hintStatus = false
             },
             async blurInputTodo({index, title, status}) {
                 this.$store.dispatch('editNote/setTitleTodo', {
