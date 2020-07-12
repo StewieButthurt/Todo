@@ -5,7 +5,10 @@
                 Todo List
             </div>
         </div>
-        <div class="todo__wrapper">
+        <div class="todo__wrapper"
+            id="todo__wrapper-ref"
+            v-resize
+        >
             <div class="todo-edit">
                 <div class="todo-edit__text-wrapper">
                     <div class="todo-edit__text">
@@ -62,19 +65,75 @@
                     @blurInputTodo="blurInputTodo"
                 />
             </div>
-            <div class="todo-edit__dashboard">
-
-            </div>
         </div>
+        <app-dashboard 
+            :top="`${top}px`"
+            :right="`${left}px`"
+            :position="'fixed'"
+            :width="'60px'"
+            :height="'80vh'"
+        />
     </div>
 </template>
 
 <script>
     const AppTodo = () => import('~/components/todo.vue')
+    const AppDashboard = () => import('~/components/dashboard.vue')
     export default {
+        async mounted() {
+            const top = document
+                .getElementById('todo__wrapper-ref')
+                .getBoundingClientRect()
+                .top
+            
+            const right = document
+                .getElementById('todo__wrapper-ref')
+                .getBoundingClientRect()
+                .right
+            
+            const left = document
+                .getElementById('todo__wrapper-ref')
+                .getBoundingClientRect()
+                .left
+
+            this.top = top
+            this.left = left
+            this.right = right
+        },
         data() {
             return {
-                todo: ''
+                todo: '',
+                top: 0,
+                right: 0,
+                left: 0
+            }
+        },
+        directives: {
+            resize: {
+                inserted: (el, binding, vnode) => {
+                    const f = (evt) => {
+
+                        const top = document
+                            .getElementById('todo__wrapper-ref')
+                            .getBoundingClientRect()
+                            .top
+                        
+                        const right = document
+                            .getElementById('todo__wrapper-ref')
+                            .getBoundingClientRect()
+                            .right
+                        
+                        const left = document
+                            .getElementById('todo__wrapper-ref')
+                            .getBoundingClientRect()
+                            .left
+
+                        vnode.context.top = top
+                        vnode.context.left = left
+                        vnode.context.right = right
+                    }
+                    window.onresize = f
+                }
             }
         },
         computed: {
@@ -101,7 +160,8 @@
             }
         },
         components: {
-            AppTodo
+            AppTodo,
+            AppDashboard
         },
         methods: {
             async clickCheckbox({index, title, status}) {
@@ -150,6 +210,7 @@
         flex-direction: column
         padding-left: 25px
         margin-top: 20px
+        margin-bottom: 20px
     
     #todo-edit__todo-list,
     #todo-edit__todo-list-enabled
@@ -214,17 +275,5 @@
         background-color: #d3d3d3
         margin: 20px 90px 0px 25px
     
-    .todo-edit__dashboard
-        position: absolute
-        display: flex
-        flex-direction: column
-        align-items: center
-        justify-content: space-around
-        right: 0px
-        top: 0px
-        width: 60px
-        background: #383838
-        border-radius: 0px 5px 0px 0px
-        height: 100%
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,.15)
+    
 </style>
