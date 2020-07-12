@@ -40,6 +40,8 @@
         opacity: .8
         width: max-content
         z-index: 20
+        text-align: center
+        max-width: 120px
     
     .hint__wrapper
         display: flex
