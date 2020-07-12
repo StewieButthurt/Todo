@@ -84,6 +84,8 @@
             :height="'80vh'"
             @enterButtonDashboard="enterButtonDashboard"
             @leaveButtonDashboard="leaveButtonDashboard"
+            @clickEditCancelDashboard="clickEditCancelDashboard"
+            @returnEditBackDashboard="returnEditBackDashboard"
         />
         <transition 
             name="fade-hint"
@@ -242,6 +244,13 @@
             },
             async leaveButtonDashboard() {
                 this.hintStatus = false
+            },
+            async clickEditCancelDashboard() {
+                this.$router.push('/')
+                await this.$store.dispatch('editNote/clearNote')
+            },
+            async returnEditBackDashboard() {
+                this.$store.dispatch('editNote/returnEditBack')
             }
         }
     }
