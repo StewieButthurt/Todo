@@ -81,24 +81,7 @@
     const AppDashboard = () => import('~/components/dashboard.vue')
     export default {
         async mounted() {
-            const top = document
-                .getElementById('todo__wrapper-ref')
-                .getBoundingClientRect()
-                .top
-            
-            const right = document
-                .getElementById('todo__wrapper-ref')
-                .getBoundingClientRect()
-                .right
-            
-            const left = document
-                .getElementById('todo__wrapper-ref')
-                .getBoundingClientRect()
-                .left
-
-            this.top = top
-            this.left = left
-            this.right = right
+            this.getCoord()
         },
         data() {
             return {
@@ -112,25 +95,7 @@
             resize: {
                 inserted: (el, binding, vnode) => {
                     const f = (evt) => {
-
-                        const top = document
-                            .getElementById('todo__wrapper-ref')
-                            .getBoundingClientRect()
-                            .top
-                        
-                        const right = document
-                            .getElementById('todo__wrapper-ref')
-                            .getBoundingClientRect()
-                            .right
-                        
-                        const left = document
-                            .getElementById('todo__wrapper-ref')
-                            .getBoundingClientRect()
-                            .left
-
-                        vnode.context.top = top
-                        vnode.context.left = left
-                        vnode.context.right = right
+                        vnode.context.getCoord()
                     }
                     window.onresize = f
                 }
@@ -185,6 +150,26 @@
                     title: title,
                     status: status
                 })
+            },
+            async getCoord() {
+                const top = document
+                    .getElementById('todo__wrapper-ref')
+                    .getBoundingClientRect()
+                    .top
+            
+                const right = document
+                    .getElementById('todo__wrapper-ref')
+                    .getBoundingClientRect()
+                    .right
+                
+                const left = document
+                    .getElementById('todo__wrapper-ref')
+                    .getBoundingClientRect()
+                    .left
+
+                this.top = top
+                this.left = left
+                this.right = right
             }
         }
     }
