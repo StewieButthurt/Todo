@@ -12,7 +12,13 @@
             <div class="todo-edit">
                 <div class="todo-edit__text-wrapper">
                     <div class="todo-edit__text">
-                        {{editNote.title}}
+                        <input 
+                            type="text"
+                            v-model="localTitle"
+                            placeholder="Untitled"
+                            @blur="changeTitle()"
+                            @keyup.enter="changeTitle()"
+                        >
                     </div>
                 </div>
             </div>
@@ -81,6 +87,7 @@
     const AppDashboard = () => import('~/components/dashboard.vue')
     export default {
         async mounted() {
+            this.localTitle = this.title
             this.getCoord()
         },
         data() {
@@ -88,7 +95,13 @@
                 todo: '',
                 top: 0,
                 right: 0,
-                left: 0
+                left: 0,
+                localTitle: ''
+            }
+        },
+        watch: {
+            title(val) {
+                this.localTitle = val
             }
         },
         directives: {
@@ -104,6 +117,9 @@
         computed: {
             editNote() {
                 return this.$store.getters['editNote/editNote']
+            },
+            title() {
+                return this.editNote.title
             },
             todoDisabled() {
                 let counter = 0
@@ -129,6 +145,16 @@
             AppDashboard
         },
         methods: {
+            async changeTitle() {
+                if(this.localTitle !== '') {
+                    this.$store.dispatch('editNote/setTitle', {
+                        title: this.localTitle
+                    })
+                } else {
+                    this.localTitle = this.title
+                }
+                
+            },
             async clickCheckbox({index, title, status}) {
                 this.$store.dispatch('editNote/setStatus', {
                     index: index,
@@ -188,6 +214,10 @@
         font-size: 32px
         font-family: 'Roboto-Medium'
         margin: 20px 90px 20px 20px
+    
+    .todo-edit__text input
+        outline: none
+        border: none
     
     .todo-edit__todo-list,
     .todo-edit__todo-list-enabled
