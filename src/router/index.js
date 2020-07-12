@@ -15,7 +15,7 @@ export default new Router({
             name: 'test',
             component: Home,
             meta: {
-                title: 'Todo',
+                title: 'Мои заметки',
                 forVisitors: true
             }
         },
@@ -23,7 +23,7 @@ export default new Router({
             path: '/edit',
             component: Edit,
             meta: {
-                title: 'Edit Task',
+                title: 'Редактирование заметки',
                 forVisitors: true
             }
         }
