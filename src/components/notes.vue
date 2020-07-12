@@ -17,7 +17,7 @@
             </div>
             <input class="notes__title notes__title-write-text"
                 v-model="localTitle"
-                placeholder="Untitled"
+                placeholder="Без названия"
                 @blur="changeTitle()"
                 v-if="index === 0 && 
                 accessEditTitle && 
