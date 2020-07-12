@@ -19,6 +19,7 @@
                 height: 45
             })"
             @mouseleave="leaveButton()"
+            @click="clickEditCancel()"
         >
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
@@ -44,6 +45,7 @@
                 height: 45
             })"
             @mouseleave="leaveButton()"
+            @click="returnEditBack()"
         >
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
@@ -172,6 +174,12 @@
             },
             async leaveButton() {
                 this.$emit('leaveButtonDashboard')
+            },
+            async clickEditCancel() {
+                this.$emit('clickEditCancelDashboard')
+            },
+            async returnEditBack() {
+                this.$emit('returnEditBackDashboard')
             }
         }
     }
