@@ -17,7 +17,7 @@
         ],
         methods: {
             async addTask() {
-                if(this.todoList[0].title !== '') {
+                if(this.todoList.length === 0 || this.todoList[0].title !== '') {
                     this.$emit('addTask')
                 }
             }
