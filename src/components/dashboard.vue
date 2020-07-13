@@ -68,6 +68,7 @@
                 height: 45
             })"
             @mouseleave="leaveButton()"
+            @click="returnEditForward()"
         >
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
@@ -180,6 +181,9 @@
             },
             async returnEditBack() {
                 this.$emit('returnEditBackDashboard')
+            },
+            async returnEditForward() {
+                this.$emit('returnEditForwardDasboard')
             }
         }
     }
