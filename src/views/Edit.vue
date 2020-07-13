@@ -27,7 +27,7 @@
             >
                 <app-todo 
                     v-for="(item, index) in editNote.todo"
-                    :key="item.title"
+                    :key="`${item.title}_${index}_edit`"
                     v-if="!item.status"
                     :index="index"
                     :title="item.title"
@@ -62,7 +62,7 @@
             >
                 <app-todo 
                     v-for="(item, index) in editNote.todo"
-                    :key="item.title"
+                    :key="`${item.title}_${index}_edit`"
                     v-if="item.status"
                     :index="index"
                     :title="item.title"
@@ -86,6 +86,7 @@
             @leaveButtonDashboard="leaveButtonDashboard"
             @clickEditCancelDashboard="clickEditCancelDashboard"
             @returnEditBackDashboard="returnEditBackDashboard"
+            @returnEditForwardDasboard="returnEditForwardDasboard"
         />
         <transition 
             name="fade-hint"
@@ -190,12 +191,16 @@
             },
             async blurInput() {
                 if(this.todo !== '') {
-                    await this.$store.dispatch('editNote/addTodo', this.todo)
+                    await this.$store.dispatch('editNote/addTodo', {
+                        title: this.todo
+                    })
                     this.todo = ''
                 }
             },
             async clickDeleteTodo({index, title, status}) {
-                this.$store.dispatch('editNote/deleteTodo', index)
+                this.$store.dispatch('editNote/deleteTodo', {
+                    index: index
+                })
                 this.hintStatus = false
             },
             async blurInputTodo({index, title, status}) {
@@ -251,6 +256,9 @@
             },
             async returnEditBackDashboard() {
                 this.$store.dispatch('editNote/returnEditBack')
+            },
+            async returnEditForwardDasboard() {
+                this.$store.dispatch('editNote/returnEditForward')
             }
         }
     }
@@ -259,6 +267,7 @@
 <style lang="sass">
     .todo-edit
         display: flex
+        user-select: none
     
     .todo-edit__text-wrapper
         display: flex
@@ -269,6 +278,7 @@
         font-size: 25px
         font-family: 'Roboto-Medium'
         margin: 20px 90px 20px 20px
+        user-select: none
     
     .todo-edit__text input
         outline: none
@@ -291,8 +301,8 @@
         align-items: center
         margin-top: 7px
         color: #202124
-        // font-size: 16px
-    
+        user-select: none
+
     .todo-edit__input input
         outline: none
         border: none
