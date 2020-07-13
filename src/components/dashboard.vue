@@ -91,6 +91,7 @@
                 height: 45
             })"
             @mouseleave="leaveButton()"
+            @click="clickSave()"
         >
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 0C6.72923 0 0 6.72865 0 15C0 23.2713 6.72923 30 15 30C23.2708 30 30 23.2713 30 15C30 6.72865 23.2708 0 15 0ZM15 28.8462C7.36558 28.8462 1.15385 22.6344 1.15385 15C1.15385 7.36558 7.36558 1.15385 15 1.15385C22.6344 1.15385 28.8462 7.36558 28.8462 15C28.8462 22.6344 22.6344 28.8462 15 28.8462Z" fill="white"/>
@@ -106,6 +107,7 @@
                 height: 45
             })"
             @mouseleave="leaveButton()"
+            @click="clickDelete()"
         >
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0)">
@@ -184,6 +186,12 @@
             },
             async returnEditForward() {
                 this.$emit('returnEditForwardDasboard')
+            },
+            async clickDelete() {
+                this.$emit('clickDeleteDashboard')
+            },
+            async clickSave() {
+                this.$emit('clickSaveDashboard')
             }
         }
     }
