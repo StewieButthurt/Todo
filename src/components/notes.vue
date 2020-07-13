@@ -1,4 +1,7 @@
 <template>
+    <!-- Компонент включающий в себя превью заметки, которая содержит 
+        заголовок и три подпункта
+     -->
     <div class="notes-wrapper"
         @click="clickNotes()"
         :class="{'notes-hover' : enter}"
@@ -35,7 +38,6 @@
                     :status="item.status"
                     :edit="edit"
                     @clickCheckbox="clickCheckbox"
-                    @clickDeleteTodo="clickDeleteTodo"
                 />
             </div>
             <div class="notes__button-delete"
@@ -53,10 +55,14 @@
 </template>
 
 <script>
+    // импорт компонента, который содержит чекбокс и заговок подпункта
     const AppTodo = () => import('~/components/todo.vue')
     export default {
         async mounted() {
             this.localTitle = this.title
+
+            // фильтр подпунктов
+            // получаем три подпункта
             this.todo.forEach((item, index) => {
                 if(index < 3) {
                     this.threeTodo.push(item)
@@ -96,23 +102,28 @@
             }
         },
         methods: {
+            // обработка потери фокуса у инпута
             async changeTitle() {
                 this.$emit('changeTitle', {
                     title: this.localTitle,
                     index: this.index
                 })
             },
+            // обработка клика по превью заметки
             async clickNotes() {
                 this.$emit('clickNotes',{
                     index: this.index,
                     title: this.title
                 })
             },
+            // обработка клика по кнопке delete у превью заметки
             async clickDelete() {
                 this.$emit('clickDelete', {
                     index: this.index
                 })
             },
+            // обработка при наведении на кнопку delete
+            // получаем координаты для отрисовки подсказки
             async enterButtonDelete() {
                 const left = this.$refs[`${this.title}${this.index}`]
                     .getBoundingClientRect()
@@ -131,18 +142,13 @@
                     left: left
                 })
             },
+            // обработка потери наведения у кнопки delete
             async leaveButtonDelete() {
                 this.$emit('leaveButtonDelete')
             },
+            // обработка клика по checkbox
             async clickCheckbox({index, title, status}) {
                 this.$emit('clickCheckbox',{
-                    index: index,
-                    title: title,
-                    status: status
-                })
-            },
-            async clickDeleteTodo({index, title, status}) {
-                this.$emit('clickDeleteTodo',{
                     index: index,
                     title: title,
                     status: status

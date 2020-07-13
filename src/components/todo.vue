@@ -1,4 +1,7 @@
 <template>
+    <!-- Компонент включающий в себя checkbox 
+        и заголовок подпункта
+    -->
     <div class="todo-component"
         @mouseenter="enter = true"
         @mouseleave="enter = false"
@@ -55,6 +58,7 @@
             'edit'
         ],
         methods: {
+            // обработка клика по checkbox
             async clickCheckbox() {
                 if(this.edit) {
                     this.$emit('clickCheckbox', {
@@ -64,6 +68,7 @@
                     })
                 }
             },
+            // обработка клика по кнопке удаления подпункта
             async clickDeleteTodo() {
                 if(this.edit) {
                     this.$emit('clickDeleteTodo', {
@@ -73,6 +78,7 @@
                     })
                 }
             },
+            // обработка потери фокуса у input
             async blurInput() {
                 if(this.edit) {
                     if(this.localTitle !== '') {
@@ -86,6 +92,8 @@
                     }
                 }
             },
+            // обработка наведения на кнопку удаления подпункта
+            // получения координат для отрисовки подсказки
             async enterDeleteTodo() {
                 if(this.edit) {
 
@@ -105,6 +113,7 @@
                     })
                 }
             },
+            // обработка потери навдении у кнопки удаления подпункта
             async leaveDeleteTodo() {
                 if(this.edit) {
                     this.$emit('leaveDeleteTodo')

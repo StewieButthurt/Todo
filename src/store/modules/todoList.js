@@ -26,21 +26,28 @@ const state = () => ({
 })
 
 const mutations = {
+    // добавляем новую заметку
     addTodo(state) {
         state.todoList.unshift({
             title: '',
             todo: []
         })
     },
+    // устанавливаем заголовок заметки
+    // на главной странице
     setTitle(state, { title, index }) {
         state.todoList[index].title = title
     },
+    // параметр дает или запрещает доступ 
+    // на редактирование заголовка
     setAccessEditTitle(state) {
         state.accessEditTitle = true
     },
+    // удаляем заметку на главной странице
     deleteItem(state, { index }) {
         state.todoList.splice(index, 1)
     },
+    // устанавлваем список заметок
     setTodoList(state, arr) {
         state.todoList = arr
     }

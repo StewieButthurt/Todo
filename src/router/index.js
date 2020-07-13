@@ -7,8 +7,6 @@ const Edit = () =>
 
 Vue.use(Router)
 
-console.log(Store.getters['editNote/editNote'])
-
 export default new Router({
     mode: 'history',
     routes: [

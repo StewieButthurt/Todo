@@ -1,4 +1,5 @@
 <template>
+    <!--Компонент включающий в себя подсказки, при наведении на кнопки  -->
     <div 
         class="hint" 
         :style="{left: `${left - paddingLeft}px`, top: `${top}px`}"

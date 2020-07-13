@@ -49,9 +49,18 @@
 
 <script>
 
+    // компонент, при клике на который добавляется новая заметка 
     const AppNewNote = () => import('~/components/new-note.vue')
+
+    // компонент включающий в себя превью заметки, 
+    // которая содержит заголовок и три подпункта
     const AppNotes = () => import('~/components/notes.vue')
+
+    // компонент включающий в себя оверлей с вопросом об удалении,
+    // с возможностью отмены или подтверждения
     const AppOverlay = () => import('~/components/overlay/delete.vue')
+
+    // Компонент включающий в себя подсказки, при наведении на кнопки 
     const AppHint = () => import('~/components/hints/index.vue')
     export default {
         async mounted() {
@@ -74,9 +83,12 @@
             AppHint
         },
         computed: {
+            // получаем список заметок
             todoList() {
                 return this.$store.getters['todoList/todoList']
             },
+            // параметр дает или запрещает доступ 
+            // на редактирование заголовка
             accessEditTitle() {
                 return this.$store.getters['todoList/accessEditTitle']
             }
@@ -92,18 +104,26 @@
             }
         },
         methods: {
+            // добавляем новую заметку
             async addTask() {
                 this.$store.dispatch('todoList/addTodo')
+
+                // параметр дает или запрещает доступ 
+                // на редактирование заголовка
                 if(!this.accessEditTitle) {
                     this.$store.dispatch('todoList/setAccessEditTitle')
                 }
             },
+            // устанавливаем заголовок заметки
+            // на главной странице
             async changeTitle({title, index}) {
                 this.$store.dispatch('todoList/setTitle', {
                     title: title,
                     index: index
                 })
             },
+            // записывам объект заметки для редактирование
+            // переходим на страницу редактирования
             async clickNotes({index, title}) {
                 if(title !== '') {
                     let todo = [...this.todoList]
@@ -114,13 +134,19 @@
                     this.$router.push('/edit')
                 }
             },
+            // обработка клика по кнопке delete у превью заметки
+            // включаем overlay
             async clickDelete({index}) {
                 this.question = true
                 this.noteIndex = index
             },
+            // обработка клика по кнопке 'отменить'
+            // выключаем overlay
             async clickOverlayCancel() {
                 this.question = false
             },
+            // обработка клика по кнопке 'удалить' у overlay
+            // удаляем выбранную заметку
             async clickOverlayDelete() {
                 this.question = false
                 const arr = []
@@ -131,11 +157,17 @@
                 })
                 this.$store.dispatch('todoList/setTodoList', arr)
             },
+            // обрабатываем наведение на кнопку удаления
+            // у превью заметки
+            // получаем координаты для отрисовки подсказки
+            // включаем подсказку
             async enterButtonDelete({top, left}) {
                 this.hintStatus = true
                 this.top = top,
                 this.left = left
             },
+            // обрабатываем потерю наведения у кнопку удаления
+            // выключаем подсказку
             async leaveButtonDelete() {
                 this.hintStatus = false
             }

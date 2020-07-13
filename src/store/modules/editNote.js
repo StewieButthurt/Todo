@@ -5,22 +5,33 @@ const state = () => ({
 })
 
 const mutations = {
+    // очистка объекта editNote
+    // очистка массива editNoteHistory
     clearNote(state) {
         state.editNote = {}
         state.editNoteHistory = []
     },
+    // очистка массива editNoteHistory
     clearEditNoteHistory(state) {
         state.editNoteHistory = []
     },
+    // получение объекта заметки для редактирование
     setNote(state, { todo, index }) {
         state.editNote = JSON.parse(JSON.stringify(todo))
         state.editNote.index = index
         state.editNoteHistory = []
     },
+    // установка статуса у checkbox
     setStatus(state, { index, status, history, commit }) {
         state.editNote.todo[index].status = status
 
+        // параметр history определяет откуда мы вызываем метод
+        // при кликах по кнопкам "назад" и "вперед"
+        // условие не сработает
         if (!history) {
+
+            // записываем в историю,что мы вызывали метод
+            // записываем параметры на момент вызова функции
             state.editNoteHistory.push({
                 methods: 'setStatus',
                 index: index,
@@ -28,12 +39,18 @@ const mutations = {
                 newStatus: status
             })
 
+            // указывает на момент истории изменений
+            // другими словами
+            // указывает на элемент массива где содержатся данные
             state.editNoteStatus++
         }
 
     },
+    // добавляем новый подпункт у заметки
     addTodo(state, { title, history, index, back }) {
 
+        // параметр back, указывает, что мы вызвали функцию
+        // при клике на кнопку "назад"
         if (history && back) {
             return state.editNote.todo.splice(index, 1)
         }
@@ -55,6 +72,7 @@ const mutations = {
             state.editNoteStatus++
         }
     },
+    // удаляем подпункт у заметки
     deleteTodo(state, { title, index, history, back }) {
 
         if (!history) {
@@ -87,6 +105,7 @@ const mutations = {
             state.editNoteStatus++
         }
     },
+    // устанавливаем заголвок у подпункта
     setTitleTodo(state, { index, title, history }) {
 
         if (!history) {
@@ -107,6 +126,8 @@ const mutations = {
             state.editNoteStatus++
         }
     },
+    // устанавливаем заголовок заметки 
+    // на странице редактирования
     setTitle(state, { title, history }) {
 
         if (!history) {
@@ -126,6 +147,7 @@ const mutations = {
             state.editNoteStatus++
         }
     },
+    // устанавливаем значение счетчика-указателя
     setEditNoteStatus(state, num) {
         state.editNoteStatus = num
     }
@@ -134,6 +156,9 @@ const mutations = {
 const actions = {
     async clearNote({ commit }) {
         commit('clearNote')
+    },
+    async clearEditNoteHistory({ commit }) {
+        commit('clearEditNoteHistory')
     },
     async setNote({ commit }, { todo, index }) {
         commit('setNote', { todo, index })
@@ -153,6 +178,9 @@ const actions = {
     async setTitle({ commit }, { title }) {
         commit('setTitle', { title })
     },
+    // метод вызывается при клике на кнопку "назад"
+    // метод по указателю получает данные из массива истории
+    // позволяя перемещаться по истории изменений
     async returnEditBack({ state, commit }) {
         if (state.editNoteStatus !== 0) {
 
@@ -178,6 +206,9 @@ const actions = {
 
         }
     },
+    // метод вызывается при клике на кнопку "вперед"
+    // метод по указателю получает данные из массива истории
+    // позволяя перемещаться по истории изменений
     async returnEditForward({ state, commit }) {
         if (state.editNoteStatus <= state.editNoteHistory.length - 1) {
 
@@ -204,9 +235,6 @@ const actions = {
     },
     async setEditNoteStatus({ commit }, num) {
         commit('setEditNoteStatus', num)
-    },
-    async clearEditNoteHistory({ commit }) {
-        commit('clearEditNoteHistory')
     }
 }
 

@@ -1,4 +1,7 @@
 <template>
+    <!-- Компонент включающий в себя оверлей с вопросом об удалении,
+        с возможностью отмены или подтверждения
+     -->
     <div class="overlay-delete" 
         :class="{
             'overlay-delete_fade-on' : question === true,
@@ -38,9 +41,11 @@
             'message'
         ],
         methods: {
+            // обработка клика по кнопке 'отменить'
             async clickOverlayCancel() {
                 this.$emit('clickOverlayCancel')
             },
+            // обработка клика по кнопке 'удалить'
             async clickOverlayDelete() {
                 this.$emit('clickOverlayDelete')
             }

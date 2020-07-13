@@ -1,4 +1,5 @@
 <template>
+    <!-- Компонент, при клике на который добавляется новая заметка -->
     <div class="new-note"
         @click="addTask()"
     >
@@ -16,6 +17,7 @@
             'todoList'
         ],
         methods: {
+            // обработка клика по кнопке "Новая заметка"
             async addTask() {
                 if(this.todoList.length === 0 || this.todoList[0].title !== '') {
                     this.$emit('addTask')

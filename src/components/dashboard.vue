@@ -1,4 +1,7 @@
 <template>
+    <!-- Компонент включающий в себя панель управления,
+        которая содержит кнопки, для управления правки заметки
+     -->
     <div class="dashboard"
         :style="{
             position: `${position}`,
@@ -159,6 +162,8 @@
             }
         },
         methods: {
+            // обработка наведения на кнопку
+            // функция получает координаты, для отрисовки подсказки
             async enterButton({title, ref, paddingLeft, height}) {
                 const left = this.$refs[`${ref}`]
                     .getBoundingClientRect()
@@ -175,21 +180,27 @@
                     paddingLeft: paddingLeft
                 })
             },
+            // обработка потери наведения на кнопках
             async leaveButton() {
                 this.$emit('leaveButtonDashboard')
             },
+            // обработка клика по кнопке "Отменить редактирование"
             async clickEditCancel() {
                 this.$emit('clickEditCancelDashboard')
             },
+            // обработка клика по кнопке "Отменить изменение"
             async returnEditBack() {
                 this.$emit('returnEditBackDashboard')
             },
+            // обработка клика по кнопке "Повторить изменение"
             async returnEditForward() {
                 this.$emit('returnEditForwardDasboard')
             },
+            // обработка клика по кнопке "Удалить заметку"
             async clickDelete() {
                 this.$emit('clickDeleteDashboard')
             },
+            // обработка клика по кнопке "Сохранить изменения"
             async clickSave() {
                 this.$emit('clickSaveDashboard')
             }

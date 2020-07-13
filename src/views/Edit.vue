@@ -1,4 +1,5 @@
 <template>
+    <!-- Страница редактирования заметки -->
     <div class="todo__container">
         <div class="todo__header">
             <div class="todo__header-title">
@@ -111,10 +112,20 @@
 </template>
 
 <script>
+
+    // компонент с checkbox 
+    // и заголовок подпункта заметки
     const AppTodo = () => import('~/components/todo.vue')
+
+    // компонент с панелью управления
     const AppDashboard = () => import('~/components/dashboard.vue')
+
+    // компонент с подсказками для кнопок
     const AppHint = () => import('~/components/hints/index.vue')
+
+    // компонент с всплывающим окном
     const AppOverlay = () => import('~/components/overlay/delete.vue')
+
     export default {
         async mounted() {
             this.localTitle = this.title
@@ -143,6 +154,7 @@
             }
         },
         directives: {
+            // директива срабатывающая при ресайзе страницы
             resize: {
                 inserted: (el, binding, vnode) => {
                     const f = (evt) => {
@@ -153,12 +165,14 @@
             }
         },
         computed: {
+            // получение объекта с редактируемой заметкой
             editNote() {
                 return this.$store.getters['editNote/editNote']
             },
             title() {
                 return this.editNote.title
             },
+            // фильтр подпунктов с отмеченным чекбоксом
             todoDisabled() {
                 let counter = 0
                 this.editNote.todo.forEach(element => {
@@ -168,6 +182,7 @@
                 });
                 return counter
             },
+            // фильтр заметок с неотмеченными чекбоксами
             todoEnabled() {
                 let counter = 0
                 this.editNote.todo.forEach(element => {
@@ -177,6 +192,7 @@
                 });
                 return counter
             },
+            // получаем список заметок
             todoList() {
                 return this.$store.getters['todoList/todoList']
             }
@@ -188,6 +204,8 @@
             AppOverlay
         },
         methods: {
+            // метод срабатывает при потери фокуса у input
+            // устаналиваем заголовок у заметки
             async changeTitle() {
                 if(this.localTitle !== '') {
                     this.$store.dispatch('editNote/setTitle', {
@@ -198,12 +216,15 @@
                 }
                 
             },
+            // метод срабатываем при клике по чекбоксу
             async clickCheckbox({index, title, status}) {
                 this.$store.dispatch('editNote/setStatus', {
                     index: index,
                     status: !status
                 })
             },
+            // метод срабатывает при потери фокуса у input
+            // добавляющего новые подпункты
             async blurInput() {
                 if(this.todo !== '') {
                     await this.$store.dispatch('editNote/addTodo', {
@@ -212,12 +233,16 @@
                     this.todo = ''
                 }
             },
+            // обработка клика по кнопке удаления подпункта
+            // удаляем подпункт
             async clickDeleteTodo({index, title, status}) {
                 this.$store.dispatch('editNote/deleteTodo', {
                     index: index
                 })
                 this.hintStatus = false
             },
+            // метод вызываем при потери фокуса у input подпункта
+            // устанавливаем заголовок подпункта
             async blurInputTodo({index, title, status}) {
                 this.$store.dispatch('editNote/setTitleTodo', {
                     index: index,
@@ -225,6 +250,8 @@
                     status: status
                 })
             },
+            // метод срабатывает при наведении на кнопку удаления у подпункта
+            // метод принимает параметры для отрисовки подсказки
             async enterDeleteTodo({title, top, left, paddingLeft}) {
                 this.titleHints = title
                 this.paddingLeft = paddingLeft
@@ -232,9 +259,12 @@
                 this.hintLeft = left
                 this.hintStatus = true
             },
+            // метод срабатывает при потери наведения 
+            // у кнопки удаления подпункта
             async leaveDeleteTodo() {
                 this.hintStatus = false
             },
+            // получение координат обертки
             async getCoord() {
                 const top = document
                     .getElementById('todo__wrapper-ref')
@@ -255,6 +285,8 @@
                 this.left = left
                 this.right = right
             },
+            // метод срабатывает при наведении на кнопки
+            // панели управления
             async enterButtonDashboard({title, top, left, paddingLeft}) {
                 this.titleHints = title
                 this.paddingLeft = paddingLeft
@@ -262,23 +294,34 @@
                 this.hintLeft = left
                 this.hintStatus = true
             },
+            // метод срабатывает при потери наведения у кнопок
+            // панели управления
             async leaveButtonDashboard() {
                 this.hintStatus = false
             },
+            // ловим всплытие у компонента dashboard
+            // обработка клика по кнопке "Отменить редактирование"
             async clickEditCancelDashboard() {
                 this.$router.push('/')
                 await this.$store.dispatch('editNote/clearNote')
             },
+            // ловим всплытие у компонента dashboard
+            // обработка клика по кнопке "Отменить изменение"
             async returnEditBackDashboard() {
                 this.$store.dispatch('editNote/returnEditBack')
             },
+            // ловим всплытие у компонента dashboard
+            // обработка клика по кнопке "Повторить изменение" 
             async returnEditForwardDasboard() {
                 this.$store.dispatch('editNote/returnEditForward')
             },
+            // ловим всплытие у компонента overlay
+            // обработка клика по кнопке 'отменить'
             async clickOverlayCancel() {
                 this.question = false
-                
             },
+            // ловим всплытие у компонента overlay
+            // обработка клика по кнопке 'удалить'
             async clickOverlayDelete() {
                 this.question = false
                 const arr = []
@@ -290,6 +333,8 @@
                 this.$store.dispatch('todoList/setTodoList', arr)
                 this.$router.push('/')
             },
+            // ловим всплытие у компонента overlay
+            // обработка клика по кнопке "Удалить заметку"
             async clickDeleteDashboard() {
                 this.question = true
 
@@ -299,6 +344,8 @@
                     }
                 })
             },
+            // ловим всплытие у компонента dashboard
+            // обработка клика по кнопке "Сохранить изменения"
             async clickSaveDashboard() {
                 const arr = []
 
