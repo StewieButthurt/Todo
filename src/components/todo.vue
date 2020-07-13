@@ -19,7 +19,6 @@
             type="text"
             v-model="localTitle"
             v-if="edit && !status"
-            @keyup.enter="blurInput()"
             @blur="blurInput()"
         >
         <div class="todo-component__button-delete-wrapper"
