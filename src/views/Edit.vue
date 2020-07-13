@@ -17,7 +17,6 @@
                             v-model="localTitle"
                             placeholder="Untitled"
                             @blur="changeTitle()"
-                            @keyup.enter="changeTitle()"
                         >
                     </div>
                 </div>
@@ -87,6 +86,8 @@
             @clickEditCancelDashboard="clickEditCancelDashboard"
             @returnEditBackDashboard="returnEditBackDashboard"
             @returnEditForwardDasboard="returnEditForwardDasboard"
+            @clickDeleteDashboard="clickDeleteDashboard"
+            @clickSaveDashboard="clickSaveDashboard"
         />
         <transition 
             name="fade-hint"
@@ -100,6 +101,12 @@
                 v-show="hintStatus"
             />
         </transition >
+        <app-overlay
+            :message="message"
+            :question="question"
+            @clickOverlayCancel="clickOverlayCancel"
+            @clickOverlayDelete="clickOverlayDelete"
+        />
     </div>
 </template>
 
@@ -107,6 +114,7 @@
     const AppTodo = () => import('~/components/todo.vue')
     const AppDashboard = () => import('~/components/dashboard.vue')
     const AppHint = () => import('~/components/hints/index.vue')
+    const AppOverlay = () => import('~/components/overlay/delete.vue')
     export default {
         async mounted() {
             this.localTitle = this.title
@@ -123,7 +131,10 @@
                 hintStatus: false,
                 paddingLeft: false,
                 hintTop: false,
-                hintLeft: false
+                hintLeft: false,
+                noteIndex: false,
+                question: 'default',
+                message: 'Вы точно хотите удалить заметку?',
             }
         },
         watch: {
@@ -165,12 +176,16 @@
                     }
                 });
                 return counter
+            },
+            todoList() {
+                return this.$store.getters['todoList/todoList']
             }
         },
         components: {
             AppTodo,
             AppDashboard,
-            AppHint
+            AppHint,
+            AppOverlay
         },
         methods: {
             async changeTitle() {
@@ -259,6 +274,45 @@
             },
             async returnEditForwardDasboard() {
                 this.$store.dispatch('editNote/returnEditForward')
+            },
+            async clickOverlayCancel() {
+                this.question = false
+                
+            },
+            async clickOverlayDelete() {
+                this.question = false
+                const arr = []
+                this.todoList.forEach((item, index) => {
+                    if(this.noteIndex !== index) {
+                        arr.push(item)
+                    }
+                })
+                this.$store.dispatch('todoList/setTodoList', arr)
+                this.$router.push('/')
+            },
+            async clickDeleteDashboard() {
+                this.question = true
+
+                this.todoList.forEach((item, index) => {
+                    if(item.title === this.editNote.title) {
+                        this.noteIndex = index
+                    }
+                })
+            },
+            async clickSaveDashboard() {
+                const arr = []
+
+                this.todoList.forEach((item, index) => {
+                    if(index !== this.editNote.index) {
+                        arr.push(item)
+                    } else {
+                        arr.push(this.editNote)
+                    }
+                })
+
+                this.$store.dispatch('todoList/setTodoList', arr)
+
+                this.$router.push('/')
             }
         }
     }
