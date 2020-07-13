@@ -140,6 +140,8 @@
         outline: none
         border: none
         margin-left: 15px
+        text-overflow: ellipsis
+        width: 100%
     
     .todo-component__checkbox
         width: 16px

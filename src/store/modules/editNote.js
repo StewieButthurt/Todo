@@ -73,17 +73,18 @@ const mutations = {
         }
     },
     // удаляем подпункт у заметки
-    deleteTodo(state, { title, index, history, back }) {
+    deleteTodo(state, { title, index, history, back, status }) {
 
         if (!history) {
             var oldTitle = state.editNote.todo[index].title
+            var oldStatus = state.editNote.todo[index].status
         }
 
         if (history && back) {
 
 
             state.editNote.todo.push({
-                status: false,
+                status: status,
                 title: title
             })
 
@@ -99,7 +100,8 @@ const mutations = {
             state.editNoteHistory.push({
                 methods: 'deleteTodo',
                 index: index,
-                oldTitle: oldTitle
+                oldTitle: oldTitle,
+                oldStatus: oldStatus
             })
 
             state.editNoteStatus++

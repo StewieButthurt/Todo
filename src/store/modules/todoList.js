@@ -1,23 +1,19 @@
 const state = () => ({
     todoList: [{
-        title: 'Текст для теста ',
+        title: 'Устроиться на работу в TR Logic LLC',
         todo: [
 
             {
                 status: true,
-                title: 'Пункт 1 текст для теста'
+                title: 'Откликнуться на вакансию'
+            },
+            {
+                status: true,
+                title: 'Выполнить тестовое задание'
             },
             {
                 status: false,
-                title: 'Пункт 2 текст для теста'
-            },
-            {
-                status: false,
-                title: 'Пункт 3 текст для теста'
-            },
-            {
-                status: false,
-                title: 'Пункт 4 текст для теста'
+                title: 'Пройти собеседование'
             }
 
         ]

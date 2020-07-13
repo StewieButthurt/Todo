@@ -135,7 +135,7 @@ module.exports = {
 
                 {
                     from: path.resolve(__dirname, 'src', 'assets', 'study.ico'),
-                    to: path.resolve(__dirname, 'dist')
+                    to: path.resolve(__dirname, 'dist/build')
                 }
 
             ]

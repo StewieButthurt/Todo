@@ -380,10 +380,14 @@
         font-family: 'Roboto-Medium'
         margin: 20px 90px 20px 20px
         user-select: none
+        width: 100%
+        
     
     .todo-edit__text input
         outline: none
         border: none
+        width: 100%
+        text-overflow: ellipsis
     
     .todo-edit__todo-list,
     .todo-edit__todo-list-enabled
