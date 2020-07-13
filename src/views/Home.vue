@@ -106,8 +106,9 @@
             },
             async clickNotes({index, title}) {
                 if(title !== '') {
+                    let todo = [...this.todoList]
                     await this.$store.dispatch('editNote/setNote', {
-                        todo: this.todoList[index],
+                        todo: todo[index],
                         index: index
                     })
                     this.$router.push('/edit')
