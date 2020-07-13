@@ -2,7 +2,7 @@
 
 Веб-версия проекта на heroku => [Todo List](https://stewiebutthurt-todo-list.herokuapp.com/)
 
-**Тестовое задание::**
+**Тестовое задание:**
 
 Средствами Vue.js реализуйте небольшое SPA приложение для заметок.
 
