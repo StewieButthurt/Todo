@@ -87,11 +87,44 @@ const mutations = {
             state.editNoteStatus++
         }
     },
-    setTitleTodo(state, { index, title }) {
+    setTitleTodo(state, { index, title, history }) {
+
+        if (!history) {
+            var oldTitle = state.editNote.todo[index].title
+        }
+
         state.editNote.todo[index].title = title
+
+        if (!history) {
+
+            state.editNoteHistory.push({
+                methods: 'setTitleTodo',
+                index: index,
+                oldTitle: oldTitle,
+                newTitle: title,
+            })
+
+            state.editNoteStatus++
+        }
     },
-    setTitle(state, { title }) {
+    setTitle(state, { title, history }) {
+
+        if (!history) {
+            var oldTitle = state.editNote.title
+        }
+
         state.editNote.title = title
+
+        if (!history) {
+
+            state.editNoteHistory.push({
+                methods: 'setTitle',
+                oldTitle: oldTitle,
+                newTitle: title,
+            })
+
+            state.editNoteStatus++
+        }
     },
     setEditNoteStatus(state, num) {
         state.editNoteStatus = num
