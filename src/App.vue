@@ -29,6 +29,7 @@
         display: flex
         flex-direction: column
         font-family: 'Roboto-Regular'
+        user-select: none
     
     .fade-page-enter-active
         animation: fade-page-enter .3s linear
