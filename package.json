@@ -51,7 +51,7 @@
     "dependencies": {
         "@babel/polyfill": "^7.10.4",
         "experss": "0.0.1-security",
-        "node-sass": "^4.14.1",
+        "node-sass": "^7.0.0",
         "normalize.css": "^8.0.1",
         "vue": "^2.6.11",
         "vue-router": "^3.3.4",
